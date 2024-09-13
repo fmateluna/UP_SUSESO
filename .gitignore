@@ -1,0 +1,118 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+egg-info/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# pytest
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# mypy
+.mypy_cache/
+
+# pytype
+.pytype/
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+staticfiles/
+media/
+
+# Flask
+instance/
+*.db
+*.sqlite3
+
+# Scrapy
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+build/
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# poetry
+.poetry/
+.pypoetry/
+
+# virtualenv
+venv/
+ENV/
+env/
+.venv/
+venv.bak/
+env.bak/
+
+# Environments
+.env
+.envrc
+
+# VS Code
+.vscode/
+
+# JetBrains IDEs
+.idea/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Emacs
+*~
+
+# Vim
+*.swp
+*.swo
+*.swn
+
+# IDEs
+*.iml
+*.iws
+*.ipr
+
+# Other
+*.DS_Store
+*.directory
+*.sqlite
