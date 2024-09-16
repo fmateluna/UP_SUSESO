@@ -1,13 +1,14 @@
 from datetime import datetime, timedelta
 from fastapi import FastAPI, APIRouter, UploadFile, File, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.services.file_service import save_file, backup_file
+from app.services.file_service import save_file
+from app.utils.file_processor import FileProcessor 
 from app.persistence.database import SessionLocal, get_db
 from app.models.models import RegistroLicenciasMedicas
 from jose import JWTError, jwt
 from fastapi.security import OAuth2PasswordBearer
 import logging
-from app.services.file_service import save_file, backup_file
+from app.services.file_service import save_file
 
 SECRET_KEY = "ARCHIVO_SUSESO"  #TODO: Leer de variables de entorno
 ALGORITHM = "HS256"
@@ -59,8 +60,20 @@ async def upload_file(file: UploadFile = File(...), db: Session = Depends(get_db
         logger.info(f"Archivo respaldado en : {file_path}, desde: {payload}")        
     except Exception as e:
         logger.error(f'Error en la respaldar del archivo {file.filename}: {e}')
-    contents = await file.read()
-    db_file = RegistroLicenciasMedicas(nombre_archivo=file.filename, contenido_archivo=contents)
+    
+    extracted_text=''
+    try:
+        extracted_text = FileProcessor.extract_text(contents, file.filename)
+    except Exception as e:
+        logger.error(f'No fue posible extraer texto desde {file.filename}: {e}')
+    
+    db_file = RegistroLicenciasMedicas(
+        nombre_archivo=file.filename,
+        contenido_archivo=contents,
+        informacion_archivo=extracted_text,
+        autor=payload.get("Usuario"),
+        oficina=payload.get("Origen"),
+    )
     db.add(db_file)
     db.commit()
     db.refresh(db_file)

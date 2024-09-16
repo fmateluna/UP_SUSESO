@@ -19,7 +19,7 @@ uvicorn app.main:app --reload
 - Health check: http://127.0.0.1:8000/healthcheck/
 
 pip install python-multipart
-
+pip install pytesseract pillow PyMuPDF
 pip install python-jose[cryptography] python-dotenv
 
 cd project
