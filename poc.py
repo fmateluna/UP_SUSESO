@@ -35,7 +35,7 @@ def get_db():
     finally:
         db.close()
 
-@app.post('/uploadfile/')
+@app.post('/uploadfileInit/')
 async def upload_file(file: UploadFile = File(...), db: Session = Depends(get_db)):
     contents = await file.read()
     db_file = RegistroLicenciasMedicas(nombre_archivo=file.filename, contenido_archivo=contents)
@@ -45,11 +45,11 @@ async def upload_file(file: UploadFile = File(...), db: Session = Depends(get_db
     logging.info(f'Archivo subido: {file.filename}')
     return {'filename': file.filename}
 
-@app.get('/healthcheck/')
+@app.get('/healthcheckInit/')
 async def healthcheck():
     return {'status': 'active'}
 
-@app.get('/', response_class=HTMLResponse)
+@app.get('/TEST', response_class=HTMLResponse)
 def main():
     content = """
         <html>

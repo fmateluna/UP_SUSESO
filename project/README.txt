@@ -19,3 +19,10 @@ uvicorn app.main:app --reload
 - Health check: http://127.0.0.1:8000/healthcheck/
 
 pip install python-multipart
+
+cd project
+pip install -r requirements.txt
+set FILE_PERSIST_PATH=FILE_PERSIST
+set LOG_PATH=log
+set DATABASE_URL=postgresql://postgres:XXX@junction.proxy.rlwy.net:34564/railway
+uvicorn app.main:app --reload
