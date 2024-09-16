@@ -22,5 +22,10 @@ async def healthcheck():
 
 @app.get('/', response_class=HTMLResponse)
 async def main():
-    content = get_index_template()
+    content = get_index_template('login')
+    return HTMLResponse(content=content)
+
+@app.get('/licencias', response_class=HTMLResponse)
+async def main():
+    content = get_index_template('licencias')
     return HTMLResponse(content=content)

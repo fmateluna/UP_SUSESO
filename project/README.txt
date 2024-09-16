@@ -20,9 +20,18 @@ uvicorn app.main:app --reload
 
 pip install python-multipart
 
+pip install python-jose[cryptography] python-dotenv
+
 cd project
 pip install -r requirements.txt
 set FILE_PERSIST_PATH=FILE_PERSIST
 set LOG_PATH=log
 set DATABASE_URL=postgresql://postgres:XXX@junction.proxy.rlwy.net:34564/railway
 uvicorn app.main:app --reload
+
+curl -X 'POST' \
+  'http://localhost:8000/uploadfile/' \
+  -H 'Authorization: Bearer 
+eyJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvIjoiRmVybmFuZG8iLCJPcmlnZW4iOiJPZmljaW5hMjMifQ.Yp3fOoj9urZsTLttigYUhpLnlc43C8L0Onxac7MjN8E' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'file=@/ruta/al/archivo.txt'

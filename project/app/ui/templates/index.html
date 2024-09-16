@@ -1,9 +1,46 @@
+<!DOCTYPE html>
 <html>
     <body>
         <h1>Subir Archivo</h1>
-        <form action="/uploadfile/" enctype="multipart/form-data" method="post">
-            <input name="file" type="file">
-            <input type="submit">
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input id="fileInput" name="file" type="file">
+            <input type="submit" value="Subir archivo">
         </form>
+
+        <script>
+            document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+                event.preventDefault();  // Prevenir el envío estándar del formulario
+
+                // Obtener el archivo seleccionado
+                const fileInput = document.getElementById('fileInput');
+                const formData = new FormData();
+                formData.append('file', fileInput.files[0]);
+
+                // Obtener el token almacenado
+                const token = localStorage.getItem('jwtToken');
+
+                try {
+                    // Enviar el archivo junto con el JWT en el encabezado Authorization
+                    const response = await fetch('/uploadfile/', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                    // Manejo de la respuesta
+                    if (response.ok) {
+                        const result = await response.json();
+                        alert(`Archivo subido exitosamente: ${result.filename}`);
+                    } else {
+                        alert('Error al subir el archivo');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Ocurrió un error');
+                }
+            });
+        </script>
     </body>
 </html>

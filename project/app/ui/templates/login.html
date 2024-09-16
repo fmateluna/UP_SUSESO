@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>Obtener Token</h1>
+        <form id="loginForm">
+            <input id="username" name="username" type="text" placeholder="Username" required>
+            <input id="password" name="password" type="password" placeholder="Password" required>
+            <input type="submit" value="Obtener Token">
+        </form>
+
+        <script>
+            document.getElementById('loginForm').addEventListener('submit', async function(event) {
+                event.preventDefault();  // Prevenir el envío estándar del formulario
+
+                // Obtener los datos del formulario
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                try {
+                    // Enviar solicitud para obtener el token
+                    const response = await fetch('/token', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams({
+                            'username': username,
+                            'password': password
+                        })
+                    });
+
+                    // Manejo de la respuesta
+                    if (response.ok) {
+                        const result = await response.json();
+                        const token = result.access_token;
+                        alert(`Token obtenido exitosamente: ${token}`);
+                        // Puedes almacenar el token en localStorage o sessionStorage
+                        localStorage.setItem('jwtToken', token);
+                        window.location.href = '/licencias';
+                    } else {
+                        alert('Error al obtener el token');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Ocurrió un error');
+                }
+            });
+        </script>
+    </body>
+</html>

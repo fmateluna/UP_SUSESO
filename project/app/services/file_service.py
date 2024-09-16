@@ -18,13 +18,3 @@ def save_file(filename: str, contents: bytes) -> str:
         logger.error(f'Error al guardar el archivo {filename}: {e}')
         raise
     return str(file_path)
-
-def backup_file(filename: str, contents: bytes) -> None:
-    backup_path = FILE_PERSIST_PATH / f"backup_{filename}"
-    try:
-        with open(backup_path, "wb") as f:
-            f.write(contents)
-        logger.info(f'Backup del archivo creado: {backup_path}')
-    except Exception as e:
-        logger.error(f'Error al crear el backup del archivo {filename}: {e}')
-        raise
